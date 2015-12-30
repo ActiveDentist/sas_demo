@@ -66,7 +66,7 @@ x "'&xlsCmdPath.'";
 /* *** Suspend SAS for 5 seconds to allow Excel to be fully started.*/
 /* *****************************************************************/
 data _null_;
-rc = sleep(5);
+	rc = sleep(5);
 run;
 /******************************************************************/
 /* *** Create a file reference to the excel sheet.*/
@@ -83,33 +83,33 @@ filename sas2xl dde 'excel|system';
 /* *** So, in the below steps, we will open the Excel template file*/
 /* *** and execute "Macro1" Excel macro.*/
 /* ******************************************************************/
- data _null_;
- file sas2xl;
-/**************************************************************/
-/* *** Open Excel template file in read-only mode. This file*/
-/* *** should have the Excel macro that you have created.*/
-/* *************************************************************/
-put "[open(""&xlsTemplatePath."", 0 , true)]";
-/**************************************************************/
-/* *** Execute the Excel macro. By default, the macro name is*/
-/* *** called "Macro1".*/
-/* *************************************************************/
-put "[run(""Macro1"")]";
-/**************************************************************/
-/* *** Close the Excel template file.*/
-/* *************************************************************/
-put '[file.close(false)]'; 
+data _null_;
+	file sas2xl;
+	/**************************************************************/
+	/* *** Open Excel template file in read-only mode. This file*/
+	/* *** should have the Excel macro that you have created.*/
+	/* *************************************************************/
+	put "[open(""&xlsTemplatePath."", 0 , true)]"; 
+	/**************************************************************/
+	/* *** Execute the Excel macro. By default, the macro name is*/
+	/* *** called "Macro1".*/
+	/* *************************************************************/
+	put "[run(""Macro1"")]"; 
+	/**************************************************************/
+	/* *** Close the Excel template file.*/
+	/* *************************************************************/
+	put '[file.close(false)]';
 
-/**************************************************************/
-/* *** Close Excel application.*/
-/* *************************************************************/
-put '[quit()]';
+	/**************************************************************/
+	/* *** Close Excel application.*/
+	/* *************************************************************/
+	put '[quit()]';
 run;
 /******************************************************************/
 /* *** Suspend SAS for 5 seconds to allow Excel to be fully closed.*/
 /* *****************************************************************/
 data _null_;
-rc = sleep(5);
+	rc = sleep(5);
 run;
 /******************************************************************/
 /* *** Delete sheet1 data set.*/
